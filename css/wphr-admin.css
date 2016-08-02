@@ -1,0 +1,18 @@
+.pending{
+    background-color: #2cc2e1;
+    border: 1px solid #808080;
+    border-radius: 6px;
+    color: #ffffff;
+    display: block;
+    padding: 4px;
+    text-align: center;
+}
+.confirmed{
+    background-color: #ffa500;
+    border: 1px solid #808080;
+    border-radius: 6px;
+    color: #ffffff;
+    display: block;
+    padding: 4px;
+    text-align: center;
+}
