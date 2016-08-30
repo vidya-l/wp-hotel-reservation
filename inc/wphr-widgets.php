@@ -55,13 +55,13 @@ class WP_Hotel_Reservation_Widget extends WP_Widget {
         $title = strip_tags( $instance[ 'title' ] );
         ?>
         <p>
-          <label for="<?php echo $this->get_field_id('title'); ?>">
-            <?php _e("Title", 'wphr')?>
+          <label for="<?php echo $this->get_field_id( 'title' ); ?>">
+            <?php _e( "Title", 'wphr' )?>
           </label>
           <br />
-          <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>"
-            name="<?php echo $this->get_field_name('title'); ?>" type="text"
-            value="<?php echo esc_attr($title); ?>" />
+          <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>"
+            name="<?php echo $this->get_field_name( 'title' ); ?>" type="text"
+            value="<?php echo esc_attr( $title ); ?>" />
         </p>
 
     <?php

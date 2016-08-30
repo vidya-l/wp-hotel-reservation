@@ -29,7 +29,7 @@ if( ! class_exists( 'WP_Hotel_Reservation' ) ) {
 			define( 'WP_HR_PLUGIN_DIR', untrailingslashit( dirname( WP_HR_PLUGIN ) ) );
 			define( 'WP_HR_PLUGIN_URL', untrailingslashit( plugins_url( '', WP_HR_PLUGIN ) ) );
 			global $wpdb;
-			define('WP_HR_TABLE', $wpdb->prefix.'reservations' );
+			define('WP_HR_TABLE', $wpdb->prefix . 'reservations' );
 		}
 
 		/**
@@ -72,7 +72,6 @@ if( ! class_exists( 'WP_Hotel_Reservation' ) ) {
 		*/
 		public function create_admin_menu(){
 			$page = add_menu_page( 'Hotel Reservations', 'Hotel Reservatons', 'manage_options', 'wphr-admin-options', array( $this,'listing_page' ), 'dashicons-admin-home', 5 );
-
 			add_action( "admin_print_styles-{$page}", array( $this, 'enqueue_admin_style' ) );
 		}
 
@@ -81,7 +80,7 @@ if( ! class_exists( 'WP_Hotel_Reservation' ) ) {
 		 * @return void
 		*/
 		public function enqueue_admin_style() {
-			wp_enqueue_style( 'wphr-styels', WP_HR_PLUGIN_URL.'/css/wphr-admin.css' );
+			wp_enqueue_style( 'wphr-styels', WP_HR_PLUGIN_URL . '/css/wphr-admin.css' );
 		}
 
 		/**

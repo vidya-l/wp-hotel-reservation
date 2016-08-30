@@ -154,13 +154,13 @@ class WP_HR_List_Table extends WP_List_Table {
 
     function get_sortable_columns() {
         $sortable_columns = array(
-            'name'               => array( 'name',false ),     //true means it's already sorted
-            'email'              => array( 'email',false ),
-            'reserved_at'        => array( 'reserved_at',false ),
-            'from_date'          => array( 'from_date',false ),
-            'to_date'            => array( 'to_date',false ),
-            'room_type'          => array( 'room_type',false ),
-            'room_requirements'  => array( 'room_requirements',false )
+            'name'               => array( 'name', false ),     //true means it's already sorted
+            'email'              => array( 'email', false ),
+            'reserved_at'        => array( 'reserved_at', false ),
+            'from_date'          => array( 'from_date', false ),
+            'to_date'            => array( 'to_date', false ),
+            'room_type'          => array( 'room_type', false ),
+            'room_requirements'  => array( 'room_requirements', false )
         );
         return $sortable_columns;
     }
