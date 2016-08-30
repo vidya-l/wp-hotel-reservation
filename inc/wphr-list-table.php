@@ -310,9 +310,8 @@ function render_list_table() {
     $listTable->data();
 
     ?>
-    <div class="wrap">
-        
-        <div id="icon-users" class="icon32"><br/></div>
+    <div class="wrap">        
+        <div id="icon-users" class="icon32"><br /></div>
         <form method="post">
           <input type="hidden" name="page" value="my_list_test" />
           <?php $listTable->search_box( 'search', 'search_id' ); ?>

@@ -11,7 +11,7 @@ class WP_Hotel_Reservation_Widget extends WP_Widget {
      */
     function WP_Hotel_Reservation_Widget() {
         $opts = array( 'description' => __( 'Reservation form', 'wphr' ) );
-        parent::__construct( false, $name = __('WP Hotel Reservation', 'wphr' ), $opts );
+        parent::__construct( false, $name = __( 'WP Hotel Reservation', 'wphr' ), $opts );
     }
     /**
      * Outputs the content of the widget
@@ -58,7 +58,7 @@ class WP_Hotel_Reservation_Widget extends WP_Widget {
           <label for="<?php echo $this->get_field_id('title'); ?>">
             <?php _e("Title", 'wphr')?>
           </label>
-          <br/>
+          <br />
           <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>"
             name="<?php echo $this->get_field_name('title'); ?>" type="text"
             value="<?php echo esc_attr($title); ?>" />
