@@ -223,8 +223,7 @@ class WP_HR_List_Table extends WP_List_Table {
      */
     function delete_item( $id ) {
         global $wpdb;
-        $table = $wpdb->prefix.'reservations';
-        $status = $wpdb->delete( $table, array( 'id' => $id ) );
+        $status = $wpdb->delete( WP_HR_TABLE, array( 'id' => $id ) );
         return $status;
     }
 
@@ -233,8 +232,7 @@ class WP_HR_List_Table extends WP_List_Table {
      */
     function confirm_item( $id ) {
         global $wpdb;
-        $table = $wpdb->prefix.'reservations';
-        $status = $wpdb->update( $table, array( 'status' => 1 ), array( 'id' => $id ) );
+        $status = $wpdb->update( WP_HR_TABLE, array( 'status' => 1 ), array( 'id' => $id ) );
         return $status;
     }
 
@@ -244,8 +242,7 @@ class WP_HR_List_Table extends WP_List_Table {
      */
     function reservation_status( $id ) {
         global $wpdb;
-        $table = $wpdb->prefix.'reservations';
-        $status = $wpdb->get_var( 'SELECT status FROM '.$table.' WHERE id='.$id );
+        $status = $wpdb->get_var( 'SELECT status FROM '.WP_HR_TABLE.' WHERE id='.$id );
         $status = ( $status == 0 ) ? '<span class="pending">Pending</span>' : '<span class="confirmed">Confirmed</span>';
         return $status;
     }

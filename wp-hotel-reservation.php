@@ -88,15 +88,16 @@ if( ! class_exists( 'WP_Hotel_Reservation' ) ) {
 		 * Renders table with saved data
 		*/
 		public function listing_page() {
-			$output = '<div class="wrap">
-						<h2>Reservations</h2>';
-						include_once( 'inc/wphr-list-table.php' );
-						render_list_table();
+			$output = 
+				'<div class="wrap">
+					<h2>Reservations</h2>';
+					include_once( 'inc/wphr-list-table.php' );
+					render_list_table();
 			$output .= '</div>';
 			return $output;
 		}
 		/**
-		 * drop reservation table on deactivation
+		 * Drop reservation table on deactivation
 		 * @return void
 		*/
 		static function delete_tables() {

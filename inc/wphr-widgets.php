@@ -89,7 +89,6 @@ class WP_Hotel_Reservation_Widget extends WP_Widget {
         ob_start();
         $html = load_template( WP_HR_PLUGIN_DIR . '/templates/widget-form.html' );
         return $html;
-        ob_end_clean();
     }
 }
 
