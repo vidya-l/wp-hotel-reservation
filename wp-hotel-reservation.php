@@ -9,39 +9,35 @@
 */
 
  // Don't call the file directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 
-/****
-Create wpHotelReservation class if already not exists.
-****/
-if( !class_exists( 'wpHotelReservation' ) ) {
+/**
+* Create WP_Hotel_Reservation class if already not exists.
+*/
+if( ! class_exists( 'WP_Hotel_Reservation' ) ) {
 
-	class wpHotelReservation{
+	class WP_Hotel_Reservation {
+		
 		/**
-		 * Constructor
-		 * Defines constants
-		 *
-		 * @return void
-		*/
-		function __construct(){
-
-			define( 'WPHR_PLUGIN', __FILE__ );
-			define( 'WPHR_PLUGIN_BASENAME', plugin_basename( WPHR_PLUGIN ) );
-			define( 'WPHR_PLUGIN_NAME', trim( dirname( WPHR_PLUGIN_BASENAME ), '/' ) );
-			define( 'WPHR_PLUGIN_DIR', untrailingslashit( dirname( WPHR_PLUGIN ) ) );
-			define( 'WPHR_PLUGIN_URL', untrailingslashit( plugins_url( '', WPHR_PLUGIN ) ) );
+		 * Sets up constants
+		 */
+		function __construct() {
+			define( 'WP_HR_PLUGIN', __FILE__ );
+			define( 'WP_HR_PLUGIN_BASENAME', plugin_basename( WP_HR_PLUGIN ) );
+			define( 'WP_HR_PLUGIN_NAME', trim( dirname( WP_HR_PLUGIN_BASENAME ), '/' ) );
+			define( 'WP_HR_PLUGIN_DIR', untrailingslashit( dirname( WP_HR_PLUGIN ) ) );
+			define( 'WP_HR_PLUGIN_URL', untrailingslashit( plugins_url( '', WP_HR_PLUGIN ) ) );
 			global $wpdb;
-			define('WPHR_TABLE', $wpdb->prefix.'reservations');
+			define('WP_HR_TABLE', $wpdb->prefix.'reservations' );
 		}
 
 		/**
 		 * Creates reservation table
 		 * @return void
 		*/
-		static function createWPHRTables(){
-			
-			$sql = "CREATE TABLE IF NOT EXISTS ".WPHR_TABLE." (
+		static function create_tables() {			
+			$sql = "CREATE TABLE IF NOT EXISTS ".WP_HR_TABLE." (
 			id bigint(20) NOT NULL AUTO_INCREMENT,
 			reserved_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 			from_date date NOT NULL,
@@ -55,7 +51,7 @@ if( !class_exists( 'wpHotelReservation' ) ) {
 			phone int NOT NULL,
 			special_requirements text DEFAULT '',
 			status tinyint(2) DEFAULT 0 NOT NULL,
-			PRIMARY KEY  (id)		
+			PRIMARY KEY (id)		
 			)";
 			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 			dbDelta( $sql );
@@ -65,8 +61,8 @@ if( !class_exists( 'wpHotelReservation' ) ) {
 		 * Creates reservation table
 		 * @return void
 		*/
-		public function init(){
-			add_action('admin_menu', array($this,'wphrAdminOptions' ));
+		public function init() {
+			add_action( 'admin_menu', array( $this, 'create_admin_menu' ) );
 		}
 
 		/**
@@ -74,45 +70,48 @@ if( !class_exists( 'wpHotelReservation' ) ) {
 		 * prints style for menu page
 		 * @return void
 		*/
-		public function wphrAdminOptions(){
-			$page = add_menu_page('Hotel Reservations', 'Hotel Reservatons', 'manage_options', 'wphr-admin-options', array($this,'wphrAdminOptionsFun' ), 'dashicons-admin-home', 5);
-			add_action( "admin_print_styles-{$page}", array($this, 'includeWphrTableStyles' ) );
+		public function create_admin_menu(){
+			$page = add_menu_page( 'Hotel Reservations', 'Hotel Reservatons', 'manage_options', 'wphr-admin-options', array( $this,'listing_page' ), 'dashicons-admin-home', 5 );
+
+			add_action( "admin_print_styles-{$page}", array( $this, 'enqueue_admin_style' ) );
 		}
 
 		/**
 		 * enqueus style in admin menu page
 		 * @return void
 		*/
-		public function includeWphrTableStyles(){
-			wp_enqueue_style('wphr-styels', WPHR_PLUGIN_URL.'/css/wphr-admin.css');
+		public function enqueue_admin_style() {
+			wp_enqueue_style( 'wphr-styels', WP_HR_PLUGIN_URL.'/css/wphr-admin.css' );
 		}
 
 		/**
 		 * Renders table with saved data
 		*/
-		public function wphrAdminOptionsFun(){
+		public function listing_page() {
 			$output = '<div class="wrap">
-				<h2>Reservations</h2>';
-				include_once('inc/wphr-list-table.php');
-				wphrRenderListTable();
+						<h2>Reservations</h2>';
+						include_once( 'inc/wphr-list-table.php' );
+						render_list_table();
 			$output .= '</div>';
 			return $output;
 		}
-
-		static function deleteWPHRTables(){
-	        // Drop table 
-			$wpdb->query("DROP TABLE IF EXISTS ".WPHR_TABLE);
+		/**
+		 * drop reservation table on deactivation
+		 * @return void
+		*/
+		static function delete_tables() {
+			$wpdb->query( "DROP TABLE IF EXISTS ".WP_HR_TABLE );
 		}
 	}
 }
 
 
-if( class_exists( 'wpHotelReservation' ) ) {
-	$wphr = new wpHotelReservation();
-	register_activation_hook( __FILE__, array('wpHotelReservation', 'createWPHRTables' ));
+if( class_exists( 'WP_Hotel_Reservation' ) ) {
+	$wphr = new WP_Hotel_Reservation();
+	register_activation_hook( __FILE__, array( 'WP_Hotel_Reservation', 'create_tables' ) );
 
-	register_deactivation_hook( __FILE__, 'deleteWPHRTables' );
+	register_deactivation_hook( __FILE__, 'delete_tables' );
 	$wphr->init();
 }
 
-require('inc/wphr-widgets.php');
+require( 'inc/wphr-widgets.php' );
