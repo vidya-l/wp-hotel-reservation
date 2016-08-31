@@ -87,7 +87,12 @@ class WP_Hotel_Reservation_Widget extends WP_Widget {
      */
     function display_form() { 
         ob_start();
-        $html = load_template( WP_HR_PLUGIN_DIR . '/templates/widget-form.html' );
+        ?>
+        <form id="booking-form" class="booking-form" name="booking-form" method="post" action="">'.
+            <?php wp_nonce_field( 'name_of_my_action', 'name_of_nonce_field' ); ?>
+            <?php load_template( WP_HR_PLUGIN_DIR . '/templates/widget-form.html' ); ?>
+        </form>
+        <?php
         return $html;
     }
 }

@@ -1,4 +1,7 @@
 <?php
+/**
+ * Ajax Handler for logged in and logged out users
+ */ 
 add_action( 'wp_ajax_save_reservation_details', 'save_reservation_details' );
 add_action( 'wp_ajax_nopriv_save_reservation_details', 'save_reservation_details' );
 function save_reservation_details() {

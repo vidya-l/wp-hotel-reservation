@@ -13,8 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 
 /**
-* Create WP_Hotel_Reservation class if already not exists.
-*/
+ * Create WP_Hotel_Reservation class if already not exists.
+ */
 if( ! class_exists( 'WP_Hotel_Reservation' ) ) {
 
 	class WP_Hotel_Reservation {
@@ -35,7 +35,7 @@ if( ! class_exists( 'WP_Hotel_Reservation' ) ) {
 		/**
 		 * Creates reservation table
 		 * @return void
-		*/
+		 */
 		static function create_tables() {			
 			$sql = "CREATE TABLE IF NOT EXISTS ".WP_HR_TABLE." (
 			id bigint(20) NOT NULL AUTO_INCREMENT,
@@ -60,7 +60,7 @@ if( ! class_exists( 'WP_Hotel_Reservation' ) ) {
 		/**
 		 * Creates reservation table
 		 * @return void
-		*/
+		 */
 		public function init() {
 			add_action( 'admin_menu', array( $this, 'create_admin_menu' ) );
 		}
@@ -69,7 +69,7 @@ if( ! class_exists( 'WP_Hotel_Reservation' ) ) {
 		 * Adds menu page
 		 * prints style for menu page
 		 * @return void
-		*/
+		 */
 		public function create_admin_menu(){
 			$page = add_menu_page( 'Hotel Reservations', 'Hotel Reservatons', 'manage_options', 'wphr-admin-options', array( $this,'listing_page' ), 'dashicons-admin-home', 5 );
 			add_action( "admin_print_styles-{$page}", array( $this, 'enqueue_admin_style' ) );
@@ -78,14 +78,14 @@ if( ! class_exists( 'WP_Hotel_Reservation' ) ) {
 		/**
 		 * enqueus style in admin menu page
 		 * @return void
-		*/
+		 */
 		public function enqueue_admin_style() {
 			wp_enqueue_style( 'wphr-styels', WP_HR_PLUGIN_URL . '/css/wphr-admin.css' );
 		}
 
 		/**
 		 * Renders table with saved data
-		*/
+		 */
 		public function listing_page() {
 			$output = 
 				'<div class="wrap">
@@ -98,14 +98,16 @@ if( ! class_exists( 'WP_Hotel_Reservation' ) ) {
 		/**
 		 * Drop reservation table on deactivation
 		 * @return void
-		*/
+		 */
 		static function delete_tables() {
 			$wpdb->query( "DROP TABLE IF EXISTS ".WP_HR_TABLE );
 		}
 	}
 }
 
-
+/**
+ * Create object of class WP_Hotel_Reservation
+ */
 if( class_exists( 'WP_Hotel_Reservation' ) ) {
 	$wphr = new WP_Hotel_Reservation();
 	register_activation_hook( __FILE__, array( 'WP_Hotel_Reservation', 'create_tables' ) );
