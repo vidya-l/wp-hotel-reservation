@@ -8,9 +8,8 @@
   License: GPL2
 */
 
- // Don't call the file directly
+// Don't call the file directly
 if ( ! defined( 'ABSPATH' ) ) exit;
-
 
 /**
  * Create WP_Hotel_Reservation class if already not exists.
